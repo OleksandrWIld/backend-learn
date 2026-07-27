@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const productsRouter = require("./controlers/products");
+require('dotenv').config()
 
 
 app.use(express.json());
@@ -16,7 +17,7 @@ app.use("/products", productsRouter);
 //     console.log(err.message || "Ошибка сервера");
 // });
 
-app.listen(8000, async () => {
+app.listen(process.env.PORT, async () => {
     console.log("Server start")
 });
 
