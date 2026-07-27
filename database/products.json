@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Ficus",
+        "price": 1000
+    },
+    {
+        "id": 2,
+        "name": "Diplademiya",
+        "price": 2225
+    },
+    {
+        "id": 3,
+        "name": "Jasmin",
+        "price": 500
+    },
+    {
+        "id": 4,
+        "name": "Zamiakulkas",
+        "price": 700
+    },
+    {
+        "id": 5,
+        "name": "Shlumbrigera",
+        "price": 100
+    },
+    {
+        "id": 6,
+        "name": "Gerbariy",
+        "price": 2000
+    }
+]
