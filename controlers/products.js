@@ -26,7 +26,7 @@ router.get("/random", (req, res) => {
 });
 
 router.get("/", [
-    query("count").isInt({ min: 1 }).withMessage("count должен быть числом > 1"),
+    query("count").optional().isInt({ min: 1 }).withMessage("count должен быть числом > 1"),
     finalValidator
 ], (req, res) => {
     const count = req.query.count;
@@ -34,7 +34,6 @@ router.get("/", [
         const slicedProducts = products.slice(0, count);
         return res.send(slicedProducts);
     }
-    // /users?count=5
     res.send(products);
     console.log("Отправлен", products);
 });
