@@ -3,11 +3,20 @@ const router = express.Router();
 const { saveFile } = require("../utils");
 
 const products = require("../database/products.json");
+const { body, param, validationResult } = require("express-validator");
 
 async function saveProducts() {
     await saveFile(products, "products");
 };
 
+function finalValidator(req, res, next) {
+    const errors = validationResult(req)
+    if (errors.array().length) {
+        const parsedErrors = errors.array().map(err => ({ message: err.msg, field: err.path }));
+        return res.status(400).send(parsedErrors);
+    }
+    return next()
+}
 
 router.get("/random", (req, res) => {
     const productIndex = Math.floor(Math.random() * products.length);
@@ -21,7 +30,10 @@ router.get("/", (req, res) => {
     console.log("Отправлен", products);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", [
+    param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
+    finalValidator
+], (req, res) => {
     const id = req.params.id;
     const product = products.find(product => product.id == id);
     if (!product) {
@@ -81,5 +93,6 @@ router.delete("/:id", async (req, res) => {
     console.log(message);
 
 });
+
 
 module.exports = router;
