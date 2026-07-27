@@ -3,7 +3,7 @@ const router = express.Router();
 const { saveFile } = require("../utils");
 
 const products = require("../database/products.json");
-const { body, param, validationResult } = require("express-validator");
+const { body, param, validationResult, query } = require("express-validator");
 
 async function saveProducts() {
     await saveFile(products, "products");
@@ -25,7 +25,16 @@ router.get("/random", (req, res) => {
     console.log(productRandom);
 });
 
-router.get("/", (req, res) => {
+router.get("/", [
+    query("count").isInt({ min: 1 }).withMessage("count должен быть числом > 1"),
+    finalValidator
+], (req, res) => {
+    const count = req.query.count;
+    if (count) {
+        const slicedProducts = products.slice(0, count);
+        return res.send(slicedProducts);
+    }
+    // /users?count=5
     res.send(products);
     console.log("Отправлен", products);
 });
