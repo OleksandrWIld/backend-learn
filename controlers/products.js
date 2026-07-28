@@ -38,6 +38,60 @@ router.get("/", [
     console.log("Отправлен", products);
 });
 
+router.get("/search", [
+    query("name").optional().isString().withMessage("name должен быть строкой"),
+    query("price").optional().isInt().withMessage("price должен быть числом"),
+    finalValidator
+], (req, res) => {
+    const searchName = req.query.name;
+    const searchPrice = req.query.price;
+
+    // фильтрация через фулл ифы под множиство условий
+    const filterProducts = products.filter(product => {
+        let match = false;
+        if (searchName) {
+            if (product.name.includes(searchName)) {
+                match = true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (searchPrice) {
+            if (product.price == searchPrice) {
+                match = true;
+            }
+            else {
+                return false;
+            }
+        }
+        return match;
+    });
+
+    res.send(filterProducts)
+
+    // Сокращённый вариант ифов под множество условий
+    // let filterProducts = products;
+    // if (searchName) {
+    //     filterProducts = filterProducts.filter(product => {
+    //         return (product.name.includes(searchName));
+    //     });
+    // }
+    // if (searchPrice) {
+    //     filterProducts = filterProducts.filter(product => {
+    //         return (product.price == searchPrice);
+    //     })
+    // }
+    // console.log(filterProducts);
+    // return res.send(filterProducts);
+
+    // самый сокращённый вариант иффов под множеством условий
+    // let filtered = products;
+    // if (searchName) filtered = filtered.filter(p => (p.name.includes(searchName)));
+    // if (searchPrice) filtered = filtered.filter(p => (p.price == searchPrice));
+    // res.send(filtered);
+});
+
 router.get("/:id", [
     param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
     finalValidator
