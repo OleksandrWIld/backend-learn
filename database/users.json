@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "email": "sergey@gmail.com",
+        "password": "qweasdzxc123",
+        "name": "Ficus",
+        "age": 30,
+        "city": "ZP",
+        "job": "Full Stuck step bro"
+    },
+    {
+        "id": 2,
+        "email": "vlas@gmail.com",
+        "password": "qweasdzxc123",
+        "name": "vlas",
+        "age": 20,
+        "city": "ZP",
+        "job": "Full femboy"
+    },
+    {
+        "id": 3,
+        "email": "vitya@gmail.com",
+        "password": "qweasdzxc123",
+        "name": "Vitya",
+        "age": 25,
+        "city": "Piter",
+        "job": "America Fucker"
+    }
+]

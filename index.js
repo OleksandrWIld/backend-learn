@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express();
 const productsRouter = require("./controlers/products");
+const usersRouter = require("./controlers/users");
 require('dotenv').config()
 
 
 app.use(express.json());
 app.use("/products", productsRouter);
+app.use("/useres", usersRouter);
 
 
 // app.use((err, req, res, next) => {
