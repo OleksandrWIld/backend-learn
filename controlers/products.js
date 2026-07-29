@@ -105,7 +105,12 @@ router.get("/:id", [
     console.log("Отправлен", product);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [
+    body("id").isInt().withMessage("Id диктуй числом"),
+    body("name").isString().withMessage("name должен быть строкой"),
+    body("price").isInt().withMessage("price должен быть числом "),
+    finalValidator
+], async (req, res) => {
     const id = products.length ? (products.at(-1).id + 1) : 1;
 
     const { name, price } = req.body;
@@ -119,7 +124,12 @@ router.post("/", async (req, res) => {
 
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", [
+    param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
+    body("name").isString().withMessage("name должен быть строкой"),
+    body("price").isInt().withMessage("price должен быть числом "),
+    finalValidator
+], async (req, res) => {
     if (!req.body.name || !req.body.price) {
         return res.send({ error: "Nothing not update" });
     }
@@ -138,7 +148,10 @@ router.patch("/:id", async (req, res) => {
     console.log(message);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [
+    param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
+    finalValidator
+], async (req, res) => {
     const { id } = req.params;
 
     const productIndex = products.findIndex(product => product.id == id);
