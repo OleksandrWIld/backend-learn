@@ -10,6 +10,11 @@ async function saveProducts() {
     await saveFile(products, "products");
 };
 
+const paramId = param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)");
+const bodyName = body("name").isString().withMessage("name должен быть строкой");
+const bodyPrice = body("price")
+    .isInt().withMessage("price должен быть целым числом ")
+    .custom(value => typeof (value) == "number").withMessage("price должен быть ИМЕННО числом");
 
 router.get("/random", (req, res) => {
     const productIndex = Math.floor(Math.random() * products.length);
@@ -86,7 +91,7 @@ router.get("/search", [
 });
 
 router.get("/:id", [
-    param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
+    paramId,
     finalValidator
 ], (req, res) => {
     const id = req.params.id;
@@ -99,9 +104,8 @@ router.get("/:id", [
 });
 
 router.post("/", [
-    body("id").isInt().withMessage("Id диктуй числом"),
-    body("name").isString().withMessage("name должен быть строкой"),
-    body("price").isInt().withMessage("price должен быть числом "),
+    bodyName,
+    bodyPrice,
     finalValidator
 ], async (req, res) => {
     const id = products.length ? (products.at(-1).id + 1) : 1;
@@ -118,9 +122,9 @@ router.post("/", [
 });
 
 router.patch("/:id", [
-    param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
-    body("name").isString().withMessage("name должен быть строкой"),
-    body("price").isInt().withMessage("price должен быть числом "),
+    paramId,
+    bodyName,
+    bodyPrice,
     finalValidator
 ], async (req, res) => {
     if (!req.body.name || !req.body.price) {
@@ -142,7 +146,7 @@ router.patch("/:id", [
 });
 
 router.delete("/:id", [
-    param("id").isInt().withMessage("Id дисктует целым числом(Вадим Колбасенко)"),
+    paramId,
     finalValidator
 ], async (req, res) => {
     const { id } = req.params;

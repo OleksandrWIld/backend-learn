@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const productsRouter = require("./controlers/products");
 const usersRouter = require("./controlers/users");
-require('dotenv').config()
+require('dotenv').config({ quiet: true })
 
 
 app.use(express.json());
