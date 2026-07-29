@@ -1,22 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const { saveFile } = require("../utils");
+const finalValidator = require("../middlewares/finalValidator.js");
 
 const products = require("../database/products.json");
-const { body, param, validationResult, query } = require("express-validator");
+const { body, param, query } = require("express-validator");
 
 async function saveProducts() {
     await saveFile(products, "products");
 };
 
-function finalValidator(req, res, next) {
-    const errors = validationResult(req)
-    if (errors.array().length) {
-        const parsedErrors = errors.array().map(err => ({ message: err.msg, field: err.path }));
-        return res.status(400).send(parsedErrors);
-    }
-    return next()
-}
 
 router.get("/random", (req, res) => {
     const productIndex = Math.floor(Math.random() * products.length);
