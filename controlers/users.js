@@ -46,13 +46,17 @@ router.post("/", [
     //     users.at(-1).id + 1
     // }
     const { email, password, name, age, city, job } = req.body;
+    const emailUsed = !!users.find(user => user.email == email);
+    if (emailUsed) {
+        return res.status(403).send({ error: "Такой email уже существует" });
+    }
     const newUser = { id, email, password, name, age, city, job };
 
     users.push(newUser);
     await saveUsers()
 
     res.send({ message: "Пользователь создан" });
-    consoleq.log("Пользыватель создан", req.body, newUser);
+    console.log("Пользыватель создан", req.body, newUser);
 });
 
 router.get("/", (req, res) => {

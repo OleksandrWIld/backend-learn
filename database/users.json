@@ -28,16 +28,7 @@
     },
     {
         "id": 4,
-        "email": "Alex@gmail.com",
-        "password": "qwwe123",
-        "name": "Alex",
-        "age": "31",
-        "city": "ZP",
-        "job": "Down"
-    },
-    {
-        "id": 5,
-        "email": "Alex@gmail.com",
+        "email": "alex@gmail.com",
         "password": "qwwe123",
         "name": "Alex",
         "age": "31",
