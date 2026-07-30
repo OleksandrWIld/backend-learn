@@ -7,7 +7,7 @@ require('dotenv').config({ quiet: true })
 
 app.use(express.json());
 app.use("/products", productsRouter);
-app.use("/useres", usersRouter);
+app.use("/users", usersRouter);
 
 
 // app.use((err, req, res, next) => {

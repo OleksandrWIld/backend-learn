@@ -28,5 +28,10 @@
         "id": 6,
         "name": "Gerbariy",
         "price": 2000
+    },
+    {
+        "id": 7,
+        "name": "Ficus",
+        "price": 1000
     }
 ]
