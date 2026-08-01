@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { saveFile } = require("../utils");
+const { saveFile, getGeneratePassword } = require("../utils");
 const finalValidator = require("../middlewares/finalValidator.js");
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const users = require("../database/users.json");
 
@@ -64,7 +64,7 @@ router.get("/", (req, res) => {
         // современный споб маппа из масива и вывод или по умному Деструкторизация с остатком
         const { email, password, ...rest } = user;
         return rest
-        // более просто способ маппа
+        // более простой способ маппа
         // return {
         //     name: user.name,
         //     age: user.age,
@@ -75,10 +75,25 @@ router.get("/", (req, res) => {
     res.send(safeDataUsers);
 });
 
+router.patch("/:id/reset-password", [
+    param("id")
+        .isInt()
+        .withMessage("id обязателен"),
+    finalValidator
+], async (req, res) => {
+    const { id } = req.params;
 
+    const user = users.find(user => user.id == id);
+    if (!user) return res.status(404).send({ error: "Нет пользователя с таким id" });
 
+    const newPassword = await getGeneratePassword()
+    user.password = newPassword;
 
+    await saveUsers()
 
+    res.send({ message: `Пароль для пользователя ${id} успешно сброшен`, newPassword });
+    console.log(newPassword);
+});
 
 
 
