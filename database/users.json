@@ -6,7 +6,8 @@
         "name": "Ficus",
         "age": 30,
         "city": "ZP",
-        "job": "Full Stuck step bro"
+        "job": "Full Stuck step bro",
+        "active": true
     },
     {
         "id": 2,
@@ -15,7 +16,8 @@
         "name": "vlas",
         "age": 20,
         "city": "ZP",
-        "job": "Full femboy"
+        "job": "Full femboy",
+        "active": true
     },
     {
         "id": 3,
@@ -24,7 +26,8 @@
         "name": "Vitya",
         "age": 25,
         "city": "Piter",
-        "job": "America Fucker"
+        "job": "America Fucker",
+        "active": true
     },
     {
         "id": 4,
@@ -33,6 +36,27 @@
         "name": "Alex",
         "age": "31",
         "city": "ZP",
-        "job": "Daun"
+        "job": "Daun",
+        "active": true
+    },
+    {
+        "id": 5,
+        "email": "alex123@gmail.com",
+        "password": "qwwe123",
+        "name": "Alex",
+        "age": "31",
+        "city": "ZP",
+        "job": "Daun",
+        "active": true
+    },
+    {
+        "id": 6,
+        "email": "alexx@gmail.com",
+        "password": "qwwe123",
+        "name": "Alex",
+        "age": "31",
+        "city": "ZP",
+        "job": "Daun",
+        "active": true
     }
 ]

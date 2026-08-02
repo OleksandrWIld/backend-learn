@@ -50,7 +50,7 @@ router.post("/", [
     if (emailUsed) {
         return res.status(403).send({ error: "Такой email уже существует" });
     }
-    const newUser = { id, email, password, name, age, city, job };
+    const newUser = { id, email, password, name, age, city, job, active: false };
 
     users.push(newUser);
     await saveUsers()
@@ -60,7 +60,9 @@ router.post("/", [
 });
 
 router.get("/", (req, res) => {
-    const safeDataUsers = users.map(user => {
+    const activeUsers = users.filter(user => user.active);
+
+    const safeDataUsers = activeUsers.map(user => {
         // современный споб маппа из масива и вывод или по умному Деструкторизация с остатком
         const { email, password, ...rest } = user;
         return rest
@@ -95,7 +97,23 @@ router.patch("/:id/reset-password", [
     console.log(newPassword);
 });
 
+router.patch("/:id/activate", [
+    param("id")
+        .isInt()
+        .withMessage("id обязателен"),
+    finalValidator
+], async (req, res) => {
+    const { id } = req.params;
 
+    const userActivate = users.find(user => user.id == id);
+    if (!userActivate) return res.status(404).send({ error: "Нет пользователя с таким id" });
+
+    if (userActivate.active) return res.status(400).send({ error: "Юзер уже активирован" })
+
+    userActivate.active = true;
+    await saveUsers();
+    res.send({ message: "Акк активирован", user: userActivate.active });
+});
 
 
 module.exports = router;
