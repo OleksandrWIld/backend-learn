@@ -1,13 +1,11 @@
 const express = require("express");
 const app = express();
-const productsRouter = require("./controlers/products");
 const usersRouter = require("./controlers/users");
 const mongoose = require("mongoose");
 require('dotenv').config({ quiet: true });
 
 
 app.use(express.json());
-app.use("/products", productsRouter);
 app.use("/users", usersRouter);
 
 
@@ -23,7 +21,7 @@ app.use("/users", usersRouter);
 app.listen(process.env.PORT, async () => {
     console.log("Server start")
     try {
-        await mongoose.connect("mongodb://localhost:27017/learn_backend")
+        await mongoose.connect(process.env.MONGO_URL)
         console.log("Database connected")
     }
     catch (error) {
