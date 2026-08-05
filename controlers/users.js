@@ -14,7 +14,7 @@ router.post("/", [
     body("email")
         .trim()
         .isEmail().withMessage("Некорректный формат email")
-        .isLength({ min: 3, max: 18 }).withMessage("Минимум 3 символа")
+        .isLength({ min: 3, max: 30 }).withMessage("Минимум 3 символа")
         .normalizeEmail(),
     body("password")
         .trim()
@@ -125,5 +125,16 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
+router.patch("/:id/reset-password", async (req, res) => {
+    const { id } = req.params;
+
+    const user = await Users.findOne({ _id: id }, "password");
+    if (!user) {
+        return res.status(404).send({ message: "Такого Юзера нет!" });
+    }
+    user.password = getGeneratePassword();
+    await user.save()
+    res.send({ message: "Пароль поменян", password: user.password })
+});
 
 module.exports = router;
